@@ -332,6 +332,16 @@
 	.offer-card:nth-child(2) { animation-delay: 0.1s; }
 	.offer-card:nth-child(3) { animation-delay: 0.2s; }
 	.offer-card:nth-child(4) { animation-delay: 0.3s; }
+
+	@keyframes pulseTitle {
+	  0%   { opacity: 1; text-shadow: 0 0 6px rgba(167,139,250,0.4); }
+	  50%  { opacity: 0.6; text-shadow: 0 0 18px rgba(167,139,250,0.9); }
+	  100% { opacity: 1; text-shadow: 0 0 6px rgba(167,139,250,0.4); }
+	}
+
+	.header h1 {
+	  animation: pulseTitle 1s infinite ease-in-out;
+	}
   </style>
 </head>
 <body>

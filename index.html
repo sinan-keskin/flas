@@ -500,7 +500,7 @@
 		function tick() {
 		  // cursor blink
 		  cursorOn = !cursorOn;
-		  const cursor = cursorOn ? "▌" : " ";
+		  const cursor = cursorOn ? "|" : " ";
 		
 		  // yaz/sil ilerlet
 		  index += dir;
@@ -525,7 +525,7 @@
 		}
 		
 		// ilk anda boş kalmasın
-		document.title = "▌";
+		document.title = "|";
 		tick();
 
 		// ✅ Animasyonlu SVG favicon (cache-busting + path icon)

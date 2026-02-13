@@ -1,2 +1,9 @@
-# flas
-Static GitHub Pages project serving dynamic flash offer schedules with region segmentation.
+# ⚡ Flash Offer Schedule
+
+Responsive interface displaying auto-calculated offer start and end times for:
+
+- 🇹🇷 TREU
+- 🌎 LATAM
+
+Built with vanilla HTML, CSS and JavaScript.
+Deployed via GitHub Pages.

@@ -1,0 +1,566 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>|</title>
+  <link id="favicon" rel="icon" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;700;900&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+	:root{
+	  --bg: #09090b;
+	  --bg2: #0a0b0f;
+	  --sidebar: #0f1014;
+	  --sidebar-hover: #18181b;
+	  --surface: #18181b;
+	  --text: #fafafa;
+	  --text2: #d4d4d8;
+	  --muted: #a1a1aa;
+	  --accent: #8b5cf6;
+	  --accent-light: #a78bfa;
+	  --accent-dark: #7c3aed;
+	  --border: #27272a;
+	  --border-light: #3f3f46;
+	  --success: #22c55e;
+	  --warning: #f59e0b;
+	  --error: #ef4444;
+
+	  /* Region colors */
+	--treu: #ef4444;              
+	--treu-light: rgba(239, 68, 68, 0.08);
+	  --latam: #f59e0b;
+	  --latam-light: rgba(245, 158, 11, 0.1);
+	}
+
+	* { margin: 0; padding: 0; box-sizing: border-box; }
+
+	body{
+	  font-family: 'Archivo', sans-serif;
+	  background: linear-gradient(135deg, #09090b 0%, #0f0a14 100%);
+	  color: var(--text);
+	  overflow-x: hidden;
+	  padding: 0;
+	}
+
+	/* ✅ Genişliğe göre düzgün ölçeklenen container */
+	.container{
+	  width: 100%;
+	  max-width: none;
+	  margin: 0;
+	  padding: 40px 20px;
+	}
+
+	.header {
+	  text-align: center;
+	  margin-bottom: 40px;
+	}
+
+	.header h1 {
+	  font-size: 32px;
+	  font-weight: 900;
+	  letter-spacing: -0.5px;
+	  background: linear-gradient(135deg, var(--accent-light), var(--accent));
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	  background-clip: text;
+	  margin-bottom: 8px;
+	}
+
+	.header p {
+	  color: var(--muted);
+	  font-size: 15px;
+	}
+
+	/* ✅ Otomatik kolon: ekran genişse 4, daralınca 3/2/1 */
+	.offers-grid{
+	  display: grid;
+	  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+	  gap: 24px;
+	  width: 100%;
+	}
+
+	.offer-card {
+	  background: var(--surface);
+	  border: 1px solid var(--border);
+	  border-radius: 16px;
+	  padding: 24px;
+	  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
+	  position: relative;
+	  overflow: hidden;
+	  min-width: 0; /* uzun içerikte taşmayı engeller */
+	}
+
+	.offer-card::before {
+	  content: '';
+	  position: absolute;
+	  top: 0;
+	  left: 0;
+	  width: 4px;
+	  height: 100%;
+	  background: var(--accent);
+	}
+
+	.offer-header {
+	  display: flex;
+	  align-items: center;
+	  gap: 12px;
+	  margin-bottom: 20px;
+	  padding-bottom: 16px;
+	  border-bottom: 1px solid var(--border);
+	}
+
+	.offer-icon {
+	  font-size: 28px;
+	}
+
+	.offer-title {
+	  font-size: 22px;
+	  font-weight: 700;
+	  letter-spacing: -0.3px;
+	}
+
+	.regions {
+	  display: grid;
+	  gap: 16px;
+	}
+
+	.region {
+	  background: var(--bg2);
+	  border: 1px solid var(--border);
+	  border-radius: 12px;
+	  padding: 16px;
+	  position: relative;
+	  min-width: 0;
+	  overflow: hidden;
+	}
+
+	.region.treu {
+	  border-left: 3px solid var(--treu);
+	  background: linear-gradient(90deg, var(--treu-light), var(--bg2));
+	}
+
+	.region.latam {
+	  border-left: 3px solid var(--latam);
+	  background: linear-gradient(90deg, var(--latam-light), var(--bg2));
+	}
+
+	.region-header {
+	  display: flex;
+	  align-items: center;
+	  gap: 8px;
+	  margin-bottom: 12px;
+	}
+
+	.region-badge {
+	  display: inline-block;
+	  padding: 4px 12px;
+	  border-radius: 999px;
+	  font-size: 11px;
+	  font-weight: 700;
+	  letter-spacing: 0.5px;
+	  text-transform: uppercase;
+	}
+
+	.region-badge.treu {
+	  background: var(--treu);
+	  color: white;
+	}
+
+	.region-badge.latam {
+	  background: var(--latam);
+	  color: white;
+	}
+	
+	.region { position: relative; overflow: hidden; }
+	.region > * { position: relative; z-index: 2; }
+
+	.region::after{
+	  content:"";
+	  position:absolute;
+	  inset:0;
+	  z-index:1;
+	  background-repeat:no-repeat;
+	  background-position:center;
+	  background-size:cover;
+	  opacity:0.14;                 /* 0.10–0.18 arası ayarla */
+	  pointer-events:none;
+	  filter:saturate(1.2) blur(0.4px);
+	  mix-blend-mode: normal;       /* ✅ bölünme hissini azaltır */
+	}
+
+	
+	/* TR bayrağı arka plan */
+	.region.treu::after{
+	  content:"";
+	  position:absolute;
+	  inset:0;                         /* ✅ tüm TREU alanını kapla */
+	  z-index:1;
+
+	  background-repeat:no-repeat;
+	  background-position:center;
+	  background-size:cover;           /* ✅ tüm alanı doldur */
+
+	  /* Hafif ama renkleri belli olsun */
+	  opacity:0.14;                    /* 0.10–0.18 arası oynayabilirsin */
+	  filter:saturate(1.15) blur(0.2px);
+	  mix-blend-mode:screen;           /* koyu zeminde daha görünür */
+	  
+	  background-image:url("data:image/svg+xml;utf8,\
+	<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'>\
+	<rect width='900' height='600' fill='%23E30A17'/>\
+	<circle cx='340' cy='300' r='160' fill='white'/>\
+	<circle cx='385' cy='300' r='130' fill='%23E30A17'/>\
+	<polygon fill='white' points='520,300 571.5,283.5 545.5,328.5 590,300 545.5,271.5 571.5,316.5'/>\
+	</svg>");
+	}
+	
+	.region.latam::after{
+	  content:"";
+	  position:absolute;
+	  inset:0;
+	  z-index:1;
+
+	  background-repeat:no-repeat;
+	  background-position:center;
+	  background-size:cover;
+
+	  opacity:0.12;
+	  filter:saturate(1.1) blur(0.3px);
+	  mix-blend-mode:screen;
+
+	  background-image:url("data:image/svg+xml;utf8,\
+	<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'>\
+	<rect width='900' height='600' fill='%23f59e0b' fill-opacity='0.55'/>\
+	<path fill='white' fill-opacity='0.9' d='M430 60 L560 160 L520 250 L600 340 L560 430 L640 520 L480 580 L410 470 L380 360 L420 260 L380 140 Z'/>\
+	</svg>");
+	}
+
+
+	.time-row {
+	  display: grid;
+	  grid-template-columns: 1fr auto;
+	  gap: 12px;
+	  margin-bottom: 8px;
+	  align-items: center;
+	}
+
+	.time-info {
+	  display: flex;
+	  flex-direction: column;
+	  gap: 4px;
+	  min-width: 0;
+	}
+
+	.time-label {
+	  font-size: 11px;
+	  color: var(--muted);
+	  text-transform: uppercase;
+	  letter-spacing: 0.5px;
+	  font-weight: 600;
+	}
+
+	.time-value {
+	  font-family: 'JetBrains Mono', monospace;
+	  font-size: 16px;
+	  font-weight: 600;
+	  color: var(--text);
+	  display: flex;
+	  align-items: center;
+	  gap: 8px;
+	  min-width: 0;
+	}
+
+	.copy-btn {
+	  padding: 8px 16px;
+	  background: rgba(139, 92, 246, 0.15);
+	  border: 1px solid rgba(139, 92, 246, 0.3);
+	  border-radius: 8px;
+	  color: var(--accent-light);
+	  font-size: 12px;
+	  font-weight: 600;
+	  cursor: pointer;
+	  transition: all 0.2s ease;
+	  font-family: 'Archivo', sans-serif;
+	  white-space: nowrap;
+	}
+
+	.copy-btn:hover {
+	  background: rgba(139, 92, 246, 0.25);
+	  transform: translateY(-1px);
+	}
+
+	.copy-btn:active {
+	  transform: translateY(0);
+	}
+
+	.copy-btn.copied {
+	  background: rgba(34, 197, 94, 0.15);
+	  border-color: rgba(34, 197, 94, 0.3);
+	  color: var(--success);
+	}
+
+	.divider {
+	  height: 1px;
+	  background: var(--border);
+	  margin: 12px 0;
+	}
+
+	/* ✅ Responsive: Sadece tipografi/padding küçült */
+	@media (max-width: 768px) {
+	  body { padding: 28px 16px; }
+
+	  .header h1 { font-size: 24px; }
+
+	  .offer-card { padding: 20px; }
+
+	  .time-value { font-size: 14px; }
+	}
+
+	/* Animation */
+	@keyframes fadeIn {
+	  from { opacity: 0; transform: translateY(10px); }
+	  to { opacity: 1; transform: translateY(0); }
+	}
+
+	.offer-card {
+	  animation: fadeIn 0.3s ease;
+	}
+
+	.offer-card:nth-child(1) { animation-delay: 0s; }
+	.offer-card:nth-child(2) { animation-delay: 0.1s; }
+	.offer-card:nth-child(3) { animation-delay: 0.2s; }
+	.offer-card:nth-child(4) { animation-delay: 0.3s; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <h1>⚡ Flaş Teklif Saatleri</h1>
+      <p>Otomatik hesaplanan teklif başlangıç ve bitiş saatleri</p>
+    </div>
+
+    <div class="offers-grid" id="offersGrid">
+      <!-- JavaScript ile doldurulacak -->
+    </div>
+  </div>
+
+  <script>
+    // Teklif yapılandırması
+    const offers = [
+      {
+        id: '12',
+        title: '12 Teklifleri',
+        icon: '🌅',
+        treu: { start: { day: 0, time: '09:00' }, end: { day: 1, time: '06:00' } },
+        latam: { start: { day: 0, time: '18:00' }, end: { day: 1, time: '15:00' } }
+      },
+      {
+        id: '15',
+        title: '15 Teklifleri',
+        icon: '☀️',
+        treu: { start: { day: 0, time: '12:00' }, end: { day: 1, time: '06:00' } },
+        latam: { start: { day: 0, time: '21:00' }, end: { day: 1, time: '15:00' } }
+      },
+      {
+        id: '18',
+        title: '18 Teklifleri',
+        icon: '🌆',
+        treu: { start: { day: 0, time: '15:00' }, end: { day: 1, time: '06:00' } },
+        latam: { start: { day: 1, time: '00:00' }, end: { day: 1, time: '15:00' } }
+      },
+      {
+        id: '21',
+        title: '21 Teklifleri',
+        icon: '🌙',
+        treu: { start: { day: 0, time: '18:00' }, end: { day: 1, time: '06:00' } },
+        latam: { start: { day: 1, time: '03:00' }, end: { day: 1, time: '15:00' } }
+      }
+    ];
+
+    // Tarih formatlama
+    function formatDate(date) {
+      const d = String(date.getDate()).padStart(2, '0');
+      const m = String(date.getMonth() + 1).padStart(2, '0');
+      const y = date.getFullYear();
+      return `${d}.${m}.${y}`;
+    }
+
+    // Tarih + saat hesaplama
+    function calculateDateTime(dayOffset, time) {
+      const today = new Date();
+      today.setDate(today.getDate() + dayOffset);
+      return {
+        date: formatDate(today),
+        time: time,
+        full: `${formatDate(today)} - ${time}`
+      };
+    }
+
+    // Kopyalama fonksiyonu
+    function copyToClipboard(text, button) {
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = '✓ Kopyalandı';
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.classList.remove('copied');
+        }, 2000);
+      }).catch(err => {
+        console.error('Kopyalama hatası:', err);
+      });
+    }
+
+    // Tek bölge HTML'i
+    function createRegionHTML(regionName, regionData) {
+      const start = calculateDateTime(regionData.start.day, regionData.start.time);
+      const end = calculateDateTime(regionData.end.day, regionData.end.time);
+      const regionClass = regionName.toLowerCase();
+
+      return `
+        <div class="region ${regionClass}">
+          <div class="region-header">
+            <span class="region-badge ${regionClass}">${regionName}</span>
+          </div>
+          
+          <div class="time-row">
+            <div class="time-info">
+              <div class="time-label">Başlangıç</div>
+              <div class="time-value">
+                <span>${start.full}</span>
+              </div>
+            </div>
+            <button class="copy-btn" onclick="copyToClipboard('${start.time}', this)">
+              Kopyala
+            </button>
+          </div>
+          
+          <div class="divider"></div>
+          
+          <div class="time-row">
+            <div class="time-info">
+              <div class="time-label">Bitiş</div>
+              <div class="time-value">
+                <span>${end.full}</span>
+              </div>
+            </div>
+            <button class="copy-btn" onclick="copyToClipboard('${end.time}', this)">
+              Kopyala
+            </button>
+          </div>
+        </div>
+      `;
+    }
+
+    // Teklif kartı HTML'i
+    function createOfferCard(offer) {
+      return `
+        <div class="offer-card">
+          <div class="offer-header">
+            <span class="offer-icon">${offer.icon}</span>
+            <h2 class="offer-title">${offer.title}</h2>
+          </div>
+          
+          <div class="regions">
+            ${createRegionHTML('TREU', offer.treu)}
+            ${createRegionHTML('LATAM', offer.latam)}
+          </div>
+        </div>
+      `;
+    }
+
+    // Sayfayı doldur
+    function renderOffers() {
+      const grid = document.getElementById('offersGrid');
+      grid.innerHTML = offers.map(offer => createOfferCard(offer)).join('');
+    }
+
+    // Sayfa yüklendiğinde render et
+    renderOffers();
+
+    // Her gün başında otomatik güncelle
+    setInterval(() => {
+      const now = new Date();
+      if (now.getHours() === 0 && now.getMinutes() === 0) {
+        renderOffers();
+      }
+    }, 60000); // Her dakika kontrol et
+	
+		const titleText = "sinankeskin.com.tr/";
+		let index = 0;
+		let isDeleting = false;
+		let showCursor = true;
+
+		function animateTitle() {
+		  const cursor = showCursor ? "|" : " ";
+		  showCursor = !showCursor;
+
+		  if (!isDeleting) {
+			index++;
+			if (index >= titleText.length) {
+			  isDeleting = true;
+			  setTimeout(() => {}, 800);
+			}
+		  } else {
+			index--;
+			if (index <= 0) {
+			  isDeleting = false;
+			}
+		  }
+
+		  document.title = titleText.slice(0, index) + cursor;
+		}
+
+		setInterval(animateTitle, 120);
+		// ✅ Animasyonlu SVG favicon (cache-busting + path icon)
+		const faviconId = "favicon";
+
+		// Lightning bolt SVG PATH (emoji yok => daha stabil)
+		function makeSvg(fill) {
+		  return `
+		  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+			<rect width="64" height="64" rx="16" fill="#09090b"/>
+			<path d="M36 6 L14 36 H29 L24 58 L50 26 H35 Z"
+				  fill="${fill}"/>
+		  </svg>`;
+		}
+
+		const svgOn = makeSvg("#a78bfa");   // parlak mor
+		const svgOff = makeSvg("#4c1d95");  // sönük mor
+
+		function setFavicon(svg) {
+		  const encoded = encodeURIComponent(svg.trim())
+			.replace(/'/g, "%27")
+			.replace(/"/g, "%22");
+
+		  // Data URI + cache bust
+		  const href = `data:image/svg+xml;charset=utf-8,${encoded}#${Date.now()}`;
+
+		  // Bazı tarayıcılarda link'i clone'layıp replace etmek gerekiyor
+		  const old = document.getElementById(faviconId) || document.querySelector('link[rel="icon"]');
+		  const link = document.createElement("link");
+		  link.id = faviconId;
+		  link.rel = "icon";
+		  link.type = "image/svg+xml";
+		  link.href = href;
+
+		  if (old && old.parentNode) old.parentNode.removeChild(old);
+		  document.head.appendChild(link);
+		}
+
+		// İlk anda set et
+		setFavicon(svgOn);
+
+		// Blink
+		let on = true;
+		setInterval(() => {
+		  on = !on;
+		  setFavicon(on ? svgOn : svgOff);
+		}, 500);
+
+  </script>
+</body>
+</html>

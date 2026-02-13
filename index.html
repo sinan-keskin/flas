@@ -12,52 +12,52 @@
 	:root{
 	  --bg: #09090b;
 	  --bg2: #0a0b0f;
-	  --sidebar: #0f1014;
-	  --sidebar-hover: #18181b;
 	  --surface: #18181b;
 	  --text: #fafafa;
-	  --text2: #d4d4d8;
 	  --muted: #a1a1aa;
+	
 	  --accent: #8b5cf6;
 	  --accent-light: #a78bfa;
-	  --accent-dark: #7c3aed;
+	
 	  --border: #27272a;
-	  --border-light: #3f3f46;
 	  --success: #22c55e;
-	  --warning: #f59e0b;
-	  --error: #ef4444;
-
+	
 	  /* Region colors */
-	--treu: #ef4444;              
-	--treu-light: rgba(239, 68, 68, 0.08);
+	  --treu: #ef4444;
+	  --treu-light: rgba(239, 68, 68, 0.08);
+	
 	  --latam: #f59e0b;
-	  --latam-light: rgba(245, 158, 11, 0.1);
+	  --latam-light: rgba(245, 158, 11, 0.10);
 	}
-
+	
 	* { margin: 0; padding: 0; box-sizing: border-box; }
-
+	
 	body{
 	  font-family: 'Archivo', sans-serif;
 	  background: linear-gradient(135deg, #09090b 0%, #0f0a14 100%);
 	  color: var(--text);
 	  overflow-x: hidden;
-	  padding: 0;user-select: none;-webkit-user-select: none; /* Safari */-ms-user-select: none;     /* Eski Edge */
+	  padding: 0;
+	
+	  user-select: none;
+	  -webkit-user-select: none;
+	  -ms-user-select: none;
 	}
-
-	/* ✅ Genişliğe göre düzgün ölçeklenen container */
+	
+	/* Layout */
 	.container{
 	  width: 100%;
 	  max-width: none;
 	  margin: 0;
 	  padding: 40px 20px;
 	}
-
-	.header {
+	
+	.header{
 	  text-align: center;
 	  margin-bottom: 40px;
 	}
-
-	.header h1 {
+	
+	.header h1{
 	  font-size: 32px;
 	  font-weight: 900;
 	  letter-spacing: -0.5px;
@@ -66,22 +66,24 @@
 	  -webkit-text-fill-color: transparent;
 	  background-clip: text;
 	  margin-bottom: 8px;
+	
+	  transition: opacity 0.3s ease, text-shadow 0.3s ease;
 	}
-
-	.header p {
+	
+	.header p{
 	  color: var(--muted);
 	  font-size: 15px;
 	}
-
-	/* ✅ Otomatik kolon: ekran genişse 4, daralınca 3/2/1 */
+	
+	/* Grid */
 	.offers-grid{
 	  display: grid;
 	  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
 	  gap: 24px;
 	  width: 100%;
 	}
-
-	.offer-card {
+	
+	.offer-card{
 	  background: var(--surface);
 	  border: 1px solid var(--border);
 	  border-radius: 16px;
@@ -89,10 +91,11 @@
 	  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.25);
 	  position: relative;
 	  overflow: hidden;
-	  min-width: 0; /* uzun içerikte taşmayı engeller */
+	  min-width: 0;
+	  animation: fadeIn 0.3s ease;
 	}
-
-	.offer-card::before {
+	
+	.offer-card::before{
 	  content: '';
 	  position: absolute;
 	  top: 0;
@@ -101,8 +104,8 @@
 	  height: 100%;
 	  background: var(--accent);
 	}
-
-	.offer-header {
+	
+	.offer-header{
 	  display: flex;
 	  align-items: center;
 	  gap: 12px;
@@ -110,23 +113,22 @@
 	  padding-bottom: 16px;
 	  border-bottom: 1px solid var(--border);
 	}
-
-	.offer-icon {
-	  font-size: 28px;
-	}
-
-	.offer-title {
+	
+	.offer-icon{ font-size: 28px; }
+	
+	.offer-title{
 	  font-size: 22px;
 	  font-weight: 700;
 	  letter-spacing: -0.3px;
 	}
-
-	.regions {
+	
+	.regions{
 	  display: grid;
 	  gap: 16px;
 	}
-
-	.region {
+	
+	/* Region cards */
+	.region{
 	  background: var(--bg2);
 	  border: 1px solid var(--border);
 	  border-radius: 12px;
@@ -135,25 +137,26 @@
 	  min-width: 0;
 	  overflow: hidden;
 	}
-
-	.region.treu {
+	
+	/* Soldaki renk çizgisi + hafif overlay (split yapmaz) */
+	.region.treu{
 	  border-left: 3px solid var(--treu);
-	  background: linear-gradient(90deg, var(--treu-light), var(--bg2));
+	  box-shadow: inset 0 0 0 9999px rgba(239,68,68,0.03);
 	}
-
-	.region.latam {
+	
+	.region.latam{
 	  border-left: 3px solid var(--latam);
-	  background: linear-gradient(90deg, var(--latam-light), var(--bg2));
+	  box-shadow: inset 0 0 0 9999px rgba(245,158,11,0.03);
 	}
-
-	.region-header {
+	
+	.region-header{
 	  display: flex;
 	  align-items: center;
 	  gap: 8px;
 	  margin-bottom: 12px;
 	}
-
-	.region-badge {
+	
+	.region-badge{
 	  display: inline-block;
 	  padding: 4px 12px;
 	  border-radius: 999px;
@@ -162,106 +165,86 @@
 	  letter-spacing: 0.5px;
 	  text-transform: uppercase;
 	}
-
-	.region-badge.treu {
+	
+	.region-badge.treu{
 	  background: var(--treu);
-	  color: white;
+	  color: #fff;
 	}
-
-	.region-badge.latam {
+	
+	.region-badge.latam{
 	  background: var(--latam);
-	  color: white;
+	  color: #fff;
 	}
 	
-	.region { position: relative; overflow: hidden; }
-	.region > * { position: relative; z-index: 2; }
-
+	/* ✅ Watermark sistemi: tek yerde yönetiyoruz */
+	.region > *{
+	  position: relative;
+	  z-index: 2;
+	}
+	
 	.region::after{
-	  content:"";
-	  position:absolute;
-	  inset:0;
-	  z-index:1;
-	  background-repeat:no-repeat;
-	  background-position:center;
-	  background-size:cover;
-	  opacity:0.14;                 /* 0.10–0.18 arası ayarla */
-	  pointer-events:none;
-	  filter:saturate(1.2) blur(0.4px);
-	  mix-blend-mode: normal;       /* ✅ bölünme hissini azaltır */
-	}
-
+	  content: "";
+	  position: absolute;
+	  inset: 0;
+	  z-index: 1;
+	  background-repeat: no-repeat;
+	  background-position: center;
+	  background-size: cover;
+	  pointer-events: none;
 	
-	/* TR bayrağı arka plan */
+	  /* görünür ama rahatsız etmeyen */
+	  opacity: 0.13;
+	  filter: saturate(1.15) blur(0.35px);
+	  mix-blend-mode: screen;
+	}
+	
+	/* 🇹🇷 TREU: TR bayrağı */
 	.region.treu::after{
-	  content:"";
-	  position:absolute;
-	  inset:0;                         /* ✅ tüm TREU alanını kapla */
-	  z-index:1;
-
-	  background-repeat:no-repeat;
-	  background-position:center;
-	  background-size:cover;           /* ✅ tüm alanı doldur */
-
-	  /* Hafif ama renkleri belli olsun */
-	  opacity:0.14;                    /* 0.10–0.18 arası oynayabilirsin */
-	  filter:saturate(1.15) blur(0.2px);
-	  mix-blend-mode:screen;           /* koyu zeminde daha görünür */
-	  
-	  background-image:url("data:image/svg+xml;utf8,\
+	  background-image: url("data:image/svg+xml;utf8,\
 	<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'>\
 	<rect width='900' height='600' fill='%23E30A17'/>\
 	<circle cx='340' cy='300' r='160' fill='white'/>\
 	<circle cx='385' cy='300' r='130' fill='%23E30A17'/>\
 	<polygon fill='white' points='520,300 571.5,283.5 545.5,328.5 590,300 545.5,271.5 571.5,316.5'/>\
 	</svg>");
+	  opacity: 0.16;
 	}
 	
+	/* 🌎 LATAM: harita */
 	.region.latam::after{
-	  content:"";
-	  position:absolute;
-	  inset:0;
-	  z-index:1;
-
-	  background-repeat:no-repeat;
-	  background-position:center;
-	  background-size:cover;
-
-	  opacity:0.12;
-	  filter:saturate(1.1) blur(0.3px);
-	  mix-blend-mode:screen;
-
-	  background-image:url("data:image/svg+xml;utf8,\
+	  background-image: url("data:image/svg+xml;utf8,\
 	<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 900 600'>\
 	<rect width='900' height='600' fill='%23f59e0b' fill-opacity='0.55'/>\
 	<path fill='white' fill-opacity='0.9' d='M430 60 L560 160 L520 250 L600 340 L560 430 L640 520 L480 580 L410 470 L380 360 L420 260 L380 140 Z'/>\
 	</svg>");
+	  opacity: 0.14;
 	}
-
-
-	.time-row {
+	
+	/* Time rows */
+	.time-row{
 	  display: grid;
 	  grid-template-columns: 1fr auto;
 	  gap: 12px;
 	  margin-bottom: 8px;
 	  align-items: center;
 	}
-
-	.time-info {
+	
+	.time-info{
 	  display: flex;
 	  flex-direction: column;
 	  gap: 4px;
 	  min-width: 0;
 	}
-
-	.time-label {
+	
+	.time-label{
 	  font-size: 11px;
 	  color: var(--muted);
 	  text-transform: uppercase;
 	  letter-spacing: 0.5px;
 	  font-weight: 600;
 	}
-
-	.time-value {
+	
+	.time-value{
 	  font-family: 'JetBrains Mono', monospace;
 	  font-size: 16px;
 	  font-weight: 600;
@@ -271,8 +254,8 @@
 	  gap: 8px;
 	  min-width: 0;
 	}
-
-	.copy-btn {
+	
+	.copy-btn{
 	  padding: 8px 16px;
 	  background: rgba(139, 92, 246, 0.15);
 	  border: 1px solid rgba(139, 92, 246, 0.3);
@@ -285,62 +268,54 @@
 	  font-family: 'Archivo', sans-serif;
 	  white-space: nowrap;
 	}
-
-	.copy-btn:hover {
+	
+	.copy-btn:hover{
 	  background: rgba(139, 92, 246, 0.25);
 	  transform: translateY(-1px);
 	}
-
-	.copy-btn:active {
-	  transform: translateY(0);
-	}
-
-	.copy-btn.copied {
+	
+	.copy-btn:active{ transform: translateY(0); }
+	
+	.copy-btn.copied{
 	  background: rgba(34, 197, 94, 0.15);
 	  border-color: rgba(34, 197, 94, 0.3);
 	  color: var(--success);
 	}
-
-	.divider {
+	
+	.divider{
 	  height: 1px;
 	  background: var(--border);
 	  margin: 12px 0;
 	}
-
-	/* ✅ Responsive: Sadece tipografi/padding küçült */
-	@media (max-width: 768px) {
-	  body { padding: 28px 16px; }
-
-	  .header h1 { font-size: 24px; }
-
-	  .offer-card { padding: 20px; }
-
-	  .time-value { font-size: 14px; }
+	
+	/* Responsive */
+	@media (max-width: 768px){
+	  .container{ padding: 28px 16px; }
+	  .header h1{ font-size: 24px; }
+	  .offer-card{ padding: 20px; }
+	  .time-value{ font-size: 14px; }
 	}
-
-	/* Animation */
-	@keyframes fadeIn {
+	
+	/* Animations */
+	@keyframes fadeIn{
 	  from { opacity: 0; transform: translateY(10px); }
-	  to { opacity: 1; transform: translateY(0); }
+	  to   { opacity: 1; transform: translateY(0); }
 	}
-
-	.offer-card {
-	  animation: fadeIn 0.3s ease;
-	}
-
+	
 	.offer-card:nth-child(1) { animation-delay: 0s; }
 	.offer-card:nth-child(2) { animation-delay: 0.1s; }
 	.offer-card:nth-child(3) { animation-delay: 0.2s; }
 	.offer-card:nth-child(4) { animation-delay: 0.3s; }
-
-	@keyframes pulseTitle {
-	  0%   { opacity: 1; text-shadow: 0 0 6px rgba(167,139,250,0.4); }
-	  50%  { opacity: 0.6; text-shadow: 0 0 18px rgba(167,139,250,0.9); }
-	  100% { opacity: 1; text-shadow: 0 0 6px rgba(167,139,250,0.4); }
+	
+	/* H1 pulse (JS senkron için class'lar) */
+	.header h1.pulse-on{
+	  text-shadow: 0 0 22px rgba(139,92,246,1);
+	  opacity: 1;
 	}
-
-	.header h1 {
-	  animation: pulseTitle 1s infinite ease-in-out;
+	
+	.header h1.pulse-off{
+	  text-shadow: 0 0 6px rgba(139,92,246,0.4);
+	  opacity: 0.65;
 	}
   </style>
 </head>
@@ -356,248 +331,240 @@
     </div>
   </div>
 
-  <script>
-    // Teklif yapılandırması
-    const offers = [
-      {
-        id: '12',
-        title: '12 Teklifleri',
-        icon: '🌅',
-        treu: { start: { day: 0, time: '09:00' }, end: { day: 1, time: '06:00' } },
-        latam: { start: { day: 0, time: '18:00' }, end: { day: 1, time: '15:00' } }
-      },
-      {
-        id: '15',
-        title: '15 Teklifleri',
-        icon: '☀️',
-        treu: { start: { day: 0, time: '12:00' }, end: { day: 1, time: '06:00' } },
-        latam: { start: { day: 0, time: '21:00' }, end: { day: 1, time: '15:00' } }
-      },
-      {
-        id: '18',
-        title: '18 Teklifleri',
-        icon: '🌆',
-        treu: { start: { day: 0, time: '15:00' }, end: { day: 1, time: '06:00' } },
-        latam: { start: { day: 1, time: '00:00' }, end: { day: 1, time: '15:00' } }
-      },
-      {
-        id: '21',
-        title: '21 Teklifleri',
-        icon: '🌙',
-        treu: { start: { day: 0, time: '18:00' }, end: { day: 1, time: '06:00' } },
-        latam: { start: { day: 1, time: '03:00' }, end: { day: 1, time: '15:00' } }
-      }
-    ];
-
-    // Tarih formatlama
-    function formatDate(date) {
-      const d = String(date.getDate()).padStart(2, '0');
-      const m = String(date.getMonth() + 1).padStart(2, '0');
-      const y = date.getFullYear();
-      return `${d}.${m}.${y}`;
+<script>
+  // =========================
+  // 1) Teklif yapılandırması
+  // =========================
+  const offers = [
+    {
+      id: '12',
+      title: '12 Teklifleri',
+      icon: '🌅',
+      treu: { start: { day: 0, time: '09:00' }, end: { day: 1, time: '06:00' } },
+      latam: { start: { day: 0, time: '18:00' }, end: { day: 1, time: '15:00' } }
+    },
+    {
+      id: '15',
+      title: '15 Teklifleri',
+      icon: '☀️',
+      treu: { start: { day: 0, time: '12:00' }, end: { day: 1, time: '06:00' } },
+      latam: { start: { day: 0, time: '21:00' }, end: { day: 1, time: '15:00' } }
+    },
+    {
+      id: '18',
+      title: '18 Teklifleri',
+      icon: '🌆',
+      treu: { start: { day: 0, time: '15:00' }, end: { day: 1, time: '06:00' } },
+      latam: { start: { day: 1, time: '00:00' }, end: { day: 1, time: '15:00' } }
+    },
+    {
+      id: '21',
+      title: '21 Teklifleri',
+      icon: '🌙',
+      treu: { start: { day: 0, time: '18:00' }, end: { day: 1, time: '06:00' } },
+      latam: { start: { day: 1, time: '03:00' }, end: { day: 1, time: '15:00' } }
     }
+  ];
 
-    // Tarih + saat hesaplama
-    function calculateDateTime(dayOffset, time) {
-      const today = new Date();
-      today.setDate(today.getDate() + dayOffset);
-      return {
-        date: formatDate(today),
-        time: time,
-        full: `${formatDate(today)} - ${time}`
-      };
-    }
+  // =========================
+  // 2) Yardımcı fonksiyonlar
+  // =========================
+  function formatDate(date) {
+    const d = String(date.getDate()).padStart(2, '0');
+    const m = String(date.getMonth() + 1).padStart(2, '0');
+    const y = date.getFullYear();
+    return `${d}.${m}.${y}`;
+  }
 
-    // Kopyalama fonksiyonu
-    function copyToClipboard(text, button) {
-      navigator.clipboard.writeText(text).then(() => {
-        const originalText = button.textContent;
-        button.textContent = '✓ Kopyalandı';
-        button.classList.add('copied');
-        
-        setTimeout(() => {
-          button.textContent = originalText;
-          button.classList.remove('copied');
-        }, 2000);
-      }).catch(err => {
-        console.error('Kopyalama hatası:', err);
-      });
-    }
+  function calculateDateTime(dayOffset, time) {
+    const today = new Date();
+    today.setDate(today.getDate() + dayOffset);
+    return {
+      date: formatDate(today),
+      time,
+      full: `${formatDate(today)} - ${time}`
+    };
+  }
 
-    // Tek bölge HTML'i
-    function createRegionHTML(regionName, regionData) {
-      const start = calculateDateTime(regionData.start.day, regionData.start.time);
-      const end = calculateDateTime(regionData.end.day, regionData.end.time);
-      const regionClass = regionName.toLowerCase();
+  function copyToClipboard(text, button) {
+    navigator.clipboard.writeText(text).then(() => {
+      const originalText = button.textContent;
+      button.textContent = '✓ Kopyalandı';
+      button.classList.add('copied');
 
-      return `
-        <div class="region ${regionClass}">
-          <div class="region-header">
-            <span class="region-badge ${regionClass}">${regionName}</span>
-          </div>
-          
-          <div class="time-row">
-            <div class="time-info">
-              <div class="time-label">Başlangıç</div>
-              <div class="time-value">
-                <span>${start.full}</span>
-              </div>
-            </div>
-            <button class="copy-btn" onclick="copyToClipboard('${start.time}', this)">
-              Saati Kopyala
-            </button>
-          </div>
-          
-          <div class="divider"></div>
-          
-          <div class="time-row">
-            <div class="time-info">
-              <div class="time-label">Bitiş</div>
-              <div class="time-value">
-                <span>${end.full}</span>
-              </div>
-            </div>
-            <button class="copy-btn" onclick="copyToClipboard('${end.time}', this)">
-              Saati Kopyala
-            </button>
-          </div>
+      setTimeout(() => {
+        button.textContent = originalText;
+        button.classList.remove('copied');
+      }, 2000);
+    }).catch(err => {
+      console.error('Kopyalama hatası:', err);
+    });
+  }
+
+  // =========================
+  // 3) HTML üretimi
+  // =========================
+  function createRegionHTML(regionName, regionData) {
+    const start = calculateDateTime(regionData.start.day, regionData.start.time);
+    const end = calculateDateTime(regionData.end.day, regionData.end.time);
+    const regionClass = regionName.toLowerCase();
+
+    return `
+      <div class="region ${regionClass}">
+        <div class="region-header">
+          <span class="region-badge ${regionClass}">${regionName}</span>
         </div>
-      `;
-    }
 
-    // Teklif kartı HTML'i
-    function createOfferCard(offer) {
-      return `
-        <div class="offer-card">
-          <div class="offer-header">
-            <span class="offer-icon">${offer.icon}</span>
-            <h2 class="offer-title">${offer.title}</h2>
+        <div class="time-row">
+          <div class="time-info">
+            <div class="time-label">Başlangıç</div>
+            <div class="time-value"><span>${start.full}</span></div>
           </div>
-          
-          <div class="regions">
-            ${createRegionHTML('TREU', offer.treu)}
-            ${createRegionHTML('LATAM', offer.latam)}
-          </div>
+          <button class="copy-btn" onclick="copyToClipboard('${start.time}', this)">Saati Kopyala</button>
         </div>
-      `;
+
+        <div class="divider"></div>
+
+        <div class="time-row">
+          <div class="time-info">
+            <div class="time-label">Bitiş</div>
+            <div class="time-value"><span>${end.full}</span></div>
+          </div>
+          <button class="copy-btn" onclick="copyToClipboard('${end.time}', this)">Saati Kopyala</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function createOfferCard(offer) {
+    return `
+      <div class="offer-card">
+        <div class="offer-header">
+          <span class="offer-icon">${offer.icon}</span>
+          <h2 class="offer-title">${offer.title}</h2>
+        </div>
+
+        <div class="regions">
+          ${createRegionHTML('TREU', offer.treu)}
+          ${createRegionHTML('LATAM', offer.latam)}
+        </div>
+      </div>
+    `;
+  }
+
+  function renderOffers() {
+    const grid = document.getElementById('offersGrid');
+    if (!grid) return;
+    grid.innerHTML = offers.map(createOfferCard).join('');
+  }
+
+  // =========================
+  // 4) Title + Favicon + H1 senkron pulse
+  // =========================
+  const faviconId = "favicon";
+  const h1El = document.querySelector(".header h1");
+
+  function makeBoltSvg(fill) {
+    return `
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+        <rect width="64" height="64" rx="16" fill="#09090b"/>
+        <path d="M36 6 L14 36 H29 L24 58 L50 26 H35 Z" fill="${fill}"/>
+      </svg>`;
+  }
+
+  function setFavicon(svg) {
+    const encoded = encodeURIComponent(svg.trim())
+      .replace(/'/g, "%27")
+      .replace(/"/g, "%22");
+
+    const href = `data:image/svg+xml;charset=utf-8,${encoded}#${Date.now()}`;
+
+    const old = document.getElementById(faviconId) || document.querySelector('link[rel="icon"]');
+    const link = document.createElement("link");
+    link.id = faviconId;
+    link.rel = "icon";
+    link.type = "image/svg+xml";
+    link.href = href;
+
+    if (old && old.parentNode) old.parentNode.removeChild(old);
+    document.head.appendChild(link);
+  }
+
+  // Title animasyonu (takılmayan)
+  const titleText = "sinankeskin.com.tr/";
+  let titleIndex = 0;
+  let titleDir = 1; // 1 yaz, -1 sil
+  let pulseOn = true;
+
+  function tickTitleAndPulse() {
+    // 1) Pulse state (favicon + H1)
+    pulseOn = !pulseOn;
+
+    setFavicon(makeBoltSvg(pulseOn ? "#a78bfa" : "#4c1d95"));
+
+    if (h1El) {
+      h1El.classList.toggle("pulse-on", pulseOn);
+      h1El.classList.toggle("pulse-off", !pulseOn);
     }
 
-    // Sayfayı doldur
-    function renderOffers() {
-      const grid = document.getElementById('offersGrid');
-      grid.innerHTML = offers.map(offer => createOfferCard(offer)).join('');
+    // 2) Title yaz/sil (asla boş kalmaz)
+    titleIndex += titleDir;
+
+    if (titleIndex >= titleText.length) {
+      titleIndex = titleText.length;
+      titleDir = -1;
+    } else if (titleIndex <= 1) {
+      titleIndex = 1;
+      titleDir = 1;
     }
 
-    // Sayfa yüklendiğinde render et
-    renderOffers();
+    // cursor title ile birlikte
+    const cursor = pulseOn ? "|" : " ";
+    document.title = titleText.slice(0, titleIndex) + cursor;
+  }
 
-    // Her gün başında otomatik güncelle
-    setInterval(() => {
-      const now = new Date();
-      if (now.getHours() === 0 && now.getMinutes() === 0) {
-        renderOffers();
+  // =========================
+  // 5) Güvenlik/UX engelleri
+  // =========================
+  function disableContextMenu() {
+    document.addEventListener("contextmenu", (e) => e.preventDefault());
+  }
+
+  function blockSomeShortcuts() {
+    document.addEventListener("keydown", (e) => {
+      const key = (e.key || "").toLowerCase();
+      const isF12 = e.key === "F12";
+      const isCtrlU = e.ctrlKey && key === "u";
+      const isCtrlShiftI = e.ctrlKey && e.shiftKey && key === "i";
+      const isCtrlShiftJ = e.ctrlKey && e.shiftKey && key === "j";
+
+      if (isF12 || isCtrlU || isCtrlShiftI || isCtrlShiftJ) {
+        e.preventDefault();
       }
-    }, 60000); // Her dakika kontrol et
-	
-		// ✅ Takılmayan title animasyonu (yaz -> bekle -> sil -> bekle)
-		// Title hiçbir zaman boş kalmaz (domain fallback olmaz)
-		
-		const titleText = "sinankeskin.com.tr/";
-		let index = 0;
-		let dir = 1; // 1=yaz, -1=sil
-		let cursorOn = true;
-		
-		function tick() {
-		  // cursor blink
-		  cursorOn = !cursorOn;
-		  const cursor = cursorOn ? "|" : " ";
-		
-		  // yaz/sil ilerlet
-		  index += dir;
-		
-		  // sınırlar (0'a düşme yok)
-		  if (index >= titleText.length) {
-		    index = titleText.length;
-		    dir = -1;
-		    document.title = titleText.slice(0, index) + cursor;
-		    return setTimeout(tick, 900); // tam yazınca bekle
-		  }
-		
-		  if (index <= 1) {
-		    index = 1;      // ✅ asla 0 değil
-		    dir = 1;
-		    document.title = titleText.slice(0, index) + cursor;
-		    return setTimeout(tick, 400); // en aza inince kısa bekle
-		  }
-		
-		  document.title = titleText.slice(0, index) + cursor;
-		  setTimeout(tick, 120); // hız
-		}
-		
-		// ilk anda boş kalmasın
-		document.title = "|";
-		tick();
+    });
+  }
 
-		// ✅ Animasyonlu SVG favicon (cache-busting + path icon)
-		const faviconId = "favicon";
+  // =========================
+  // 6) Başlat
+  // =========================
+  renderOffers();
 
-		// Lightning bolt SVG PATH (emoji yok => daha stabil)
-		function makeSvg(fill) {
-		  return `
-		  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-			<rect width="64" height="64" rx="16" fill="#09090b"/>
-			<path d="M36 6 L14 36 H29 L24 58 L50 26 H35 Z"
-				  fill="${fill}"/>
-		  </svg>`;
-		}
+  // her gün 00:00'da yenile
+  setInterval(() => {
+    const now = new Date();
+    if (now.getHours() === 0 && now.getMinutes() === 0) renderOffers();
+  }, 60000);
 
-		const svgOn = makeSvg("#a78bfa");   // parlak mor
-		const svgOff = makeSvg("#4c1d95");  // sönük mor
+  // ilk anda boş title olmasın + ilk favicon
+  document.title = "|";
+  setFavicon(makeBoltSvg("#a78bfa"));
+  if (h1El) h1El.classList.add("pulse-on");
 
-		function setFavicon(svg) {
-		  const encoded = encodeURIComponent(svg.trim())
-			.replace(/'/g, "%27")
-			.replace(/"/g, "%22");
+  // Senkron ritim (favicon + h1 + title cursor)
+  setInterval(tickTitleAndPulse, 600);
 
-		  // Data URI + cache bust
-		  const href = `data:image/svg+xml;charset=utf-8,${encoded}#${Date.now()}`;
-
-		  // Bazı tarayıcılarda link'i clone'layıp replace etmek gerekiyor
-		  const old = document.getElementById(faviconId) || document.querySelector('link[rel="icon"]');
-		  const link = document.createElement("link");
-		  link.id = faviconId;
-		  link.rel = "icon";
-		  link.type = "image/svg+xml";
-		  link.href = href;
-
-		  if (old && old.parentNode) old.parentNode.removeChild(old);
-		  document.head.appendChild(link);
-		}
-
-		// İlk anda set et
-		setFavicon(svgOn);
-
-		// Blink
-		let on = true;
-		setInterval(() => {
-		  on = !on;
-		  setFavicon(on ? svgOn : svgOff);
-		}, 500);
-		// Sağ tık menüsünü kapat
-		document.addEventListener("contextmenu", function(e) {
-		  e.preventDefault();
-		});
-		// Bazı kısayolları engelle
-		document.addEventListener("keydown", function(e) {
-		  if (
-		    e.key === "F12" ||
-		    (e.ctrlKey && e.shiftKey && e.key === "I") ||
-		    (e.ctrlKey && e.shiftKey && e.key === "J") ||
-		    (e.ctrlKey && e.key === "U")
-		  ) {
-		    e.preventDefault();
-		  }
-		});
-  </script>
+  disableContextMenu();
+  blockSomeShortcuts();
+</script>
 </body>
 </html>

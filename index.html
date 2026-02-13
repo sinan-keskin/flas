@@ -489,32 +489,45 @@
       }
     }, 60000); // Her dakika kontrol et
 	
+		// ✅ Takılmayan title animasyonu (yaz -> bekle -> sil -> bekle)
+		// Title hiçbir zaman boş kalmaz (domain fallback olmaz)
+		
 		const titleText = "sinankeskin.com.tr/";
 		let index = 0;
-		let isDeleting = false;
-		let showCursor = true;
-
-		function animateTitle() {
-		  const cursor = showCursor ? "|" : " ";
-		  showCursor = !showCursor;
-
-		  if (!isDeleting) {
-			index++;
-			if (index >= titleText.length) {
-			  isDeleting = true;
-			  setTimeout(() => {}, 800);
-			}
-		  } else {
-			index--;
-			if (index > 1) {
-			  isDeleting = false;
-			}
+		let dir = 1; // 1=yaz, -1=sil
+		let cursorOn = true;
+		
+		function tick() {
+		  // cursor blink
+		  cursorOn = !cursorOn;
+		  const cursor = cursorOn ? "▌" : " ";
+		
+		  // yaz/sil ilerlet
+		  index += dir;
+		
+		  // sınırlar (0'a düşme yok)
+		  if (index >= titleText.length) {
+		    index = titleText.length;
+		    dir = -1;
+		    document.title = titleText.slice(0, index) + cursor;
+		    return setTimeout(tick, 900); // tam yazınca bekle
 		  }
-
+		
+		  if (index <= 1) {
+		    index = 1;      // ✅ asla 0 değil
+		    dir = 1;
+		    document.title = titleText.slice(0, index) + cursor;
+		    return setTimeout(tick, 400); // en aza inince kısa bekle
+		  }
+		
 		  document.title = titleText.slice(0, index) + cursor;
+		  setTimeout(tick, 120); // hız
 		}
+		
+		// ilk anda boş kalmasın
+		document.title = "▌";
+		tick();
 
-		setInterval(animateTitle, 120);
 		// ✅ Animasyonlu SVG favicon (cache-busting + path icon)
 		const faviconId = "favicon";
 
